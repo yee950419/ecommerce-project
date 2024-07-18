@@ -1,11 +1,13 @@
 package com.ecommerse.user_service.user.controller;
 
+import com.ecommerse.user_service.user.dto.UserDto;
+import com.ecommerse.user_service.user.service.UserService;
 import com.ecommerse.user_service.user.vo.Greeting;
+import com.ecommerse.user_service.user.vo.RequestUser;
 import lombok.RequiredArgsConstructor;
-import org.springframework.core.env.Environment;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     private final Greeting greeting;
+    private final UserService userService;
 
     @GetMapping("/health_check")
     public String status() {
@@ -24,5 +27,19 @@ public class UserController {
     public String welcome() {
 
         return greeting.getMessage();
+    }
+
+    @PostMapping("/users")
+    public ResponseEntity createUser(@RequestBody RequestUser requestUser) {
+
+        UserDto userDto = UserDto.builder()
+                .email(requestUser.getEmail())
+                .name(requestUser.getName())
+                .password(requestUser.getPassword())
+                .build();
+
+        userService.createUser(userDto);
+
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 }
