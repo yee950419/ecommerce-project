@@ -6,22 +6,24 @@ import com.ecommerse.user_service.user.vo.Greeting;
 import com.ecommerse.user_service.user.vo.RequestUser;
 import com.ecommerse.user_service.user.vo.ResponseUser;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/")
+@RequestMapping("/user-service")
 public class UserController {
 
     private final Greeting greeting;
     private final UserService userService;
+    private final Environment env;
 
     @GetMapping("/health_check")
     public String status() {
 
-        return "It's Working in User Service";
+        return String.format("It's Working in User Service on PORT %s", env.getProperty("local.server.port"));
     }
 
     @GetMapping("/welcome")

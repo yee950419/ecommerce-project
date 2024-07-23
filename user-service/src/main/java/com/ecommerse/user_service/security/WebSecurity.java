@@ -24,11 +24,11 @@ public class WebSecurity {
         http.csrf( (csfr) -> csfr.disable());
 
         http.authorizeHttpRequests((authz) -> authz
-                .requestMatchers(new AntPathRequestMatcher("/actuator/**")).permitAll()
-                .requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()
-                .requestMatchers(new AntPathRequestMatcher("/users", "POST")).permitAll()
-                .requestMatchers(new AntPathRequestMatcher("/welcome")).permitAll()
-                .requestMatchers(new AntPathRequestMatcher("/health-check")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/user-service/actuator/**")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/user-service/h2-console/**")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/user-service/users", "POST")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/user-service/welcome")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/user-service/health_check")).permitAll()
                 .anyRequest().authenticated()
         );
 
