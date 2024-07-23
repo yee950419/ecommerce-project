@@ -4,6 +4,7 @@ import com.ecommerse.user_service.user.dto.UserDto;
 import com.ecommerse.user_service.user.service.UserService;
 import com.ecommerse.user_service.user.vo.Greeting;
 import com.ecommerse.user_service.user.vo.RequestUser;
+import com.ecommerse.user_service.user.vo.ResponseUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,8 +39,8 @@ public class UserController {
                 .password(requestUser.getPassword())
                 .build();
 
-        userService.createUser(userDto);
+        ResponseUser responseUser = userService.createUser(userDto);
 
-        return new ResponseEntity(HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseUser);
     }
 }

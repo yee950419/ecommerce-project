@@ -3,8 +3,10 @@ package com.ecommerse.user_service.user.entity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@Getter
 @Entity
 @Table(name = "users")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -23,7 +25,7 @@ public class User {
     @Column(nullable = false, unique = true)
     private String userId;
 
-    @Column(nullable = false, unique = false)
+    @Column(nullable = false, unique = true)
     private String encryptedPassword;
 
     @Builder
